@@ -1,7 +1,7 @@
 {
 	"name"       :"zhusaidong/php-music-api",
 	"description":"php music api",
-	"type"       :"project",
+	"type"       :"library",
 	"license"    :"MIT",
 	"authors"    :[
 		{

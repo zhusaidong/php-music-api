@@ -43,7 +43,7 @@ MusicSite::Lizhi
 ## api
 
 ```php
-$musicApi->music($id = '');
-$musicApi->mv($id = '');
-$musicApi->playlist($id = '', bool $getSong = FALSE);
+$musicApi->music($id = '');//获取音乐
+$musicApi->mv($id = '');//获取mv
+$musicApi->playlist($id = '', bool $getSong = FALSE);//获取歌单
 ```
