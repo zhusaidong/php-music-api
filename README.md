@@ -1,10 +1,10 @@
 # php-music-api
 
-php 音乐 api
+**数据调用的是各网站的 API 接口，有的接口并不是开放的，随时可能失效，本项目相关代码仅供参考。**
 
 ## 安装
 
->   composer require zhusaidong/php-music-api
+> composer require zhusaidong/php-music-api
 
 ## 用法
 
@@ -47,3 +47,8 @@ $musicApi->music($id = '');//获取音乐
 $musicApi->mv($id = '');//获取mv
 $musicApi->playlist($id = '', bool $getSong = FALSE);//获取歌单
 ```
+
+## 免责声明
+
+1. 本站音频文件来自各网站接口，本站不会修改任何音频文件
+2. 音频版权来自各网站，本站只提供数据查询服务，不提供任何音频存储和贩卖服务
