@@ -1,0 +1,28 @@
+{
+	"name"       :"zhusaidong/php-music-api",
+	"description":"php music api",
+	"type"       :"project",
+	"license"    :"MIT",
+	"authors"    :[
+		{
+			"name" :"zhusaidong",
+			"email":"zhusaidong@gmail.com"
+		}
+	],
+	"require"    :{
+		"php"               :"^7.1",
+		"zhusaidong/curlite":"^1.0",
+		"ext-json"          :"*",
+		"ext-openssl"       :"*"
+	},
+	"autoload"   :{
+		"psr-4":{
+			"zhusaidong\\phpMusicApi\\":"src/"
+		}
+	},
+	"extra"      :{
+		"branch-alias":{
+			"dev-master":"1.0-dev"
+		}
+	}
+}
