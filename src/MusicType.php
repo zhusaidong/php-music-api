@@ -10,7 +10,8 @@ namespace zhusaidong\phpMusicApi;
 
 class MusicType
 {
-	const MUSIC = 'music';
-	const MV = 'mv';
-	const PLAYLIST = 'playlist';
+	const MUSIC         = 'music';
+	const MV            = 'mv';
+	const PLAYLIST      = 'playlist';
+	const USER_PLAYLIST = 'userPlaylist';
 }

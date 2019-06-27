@@ -101,9 +101,7 @@ class NetEaseYunMusic extends BaseMusic implements MusicInterface
 		$data = $this->get($url);
 		$data = json_decode($data, TRUE);
 		
-		$lyric = $data['lyric'] ?? NULL;
-		
-		return $lyric;
+		return $data['lyric'] ?? NULL;
 	}
 	
 	/**
@@ -113,18 +111,10 @@ class NetEaseYunMusic extends BaseMusic implements MusicInterface
 	 */
 	public function getMvUrl() : ?string
 	{
-		$url = $this->baseUrl . 'song/enhance/play/mv/url';
 		$this->songId2mvId();
-		$data = $this->getEncodeData([
-			'id' => $this->getId(MusicType::MV),
-			'r'  => 1080,
-		]);
-		$data = $this->post($url, $data);
+		$data = $this->getMvInfo();
 		
-		$data = json_decode($data, TRUE);
-		$url  = $data['data']['url'] ?? NULL;
-		
-		return $url;
+		return $data['url'] ?? NULL;
 	}
 	
 	/**
@@ -159,16 +149,17 @@ class NetEaseYunMusic extends BaseMusic implements MusicInterface
 	 */
 	public function getMvInfo() : ?array
 	{
-		$url  = $this->baseUrl . 'song/enhance/play/mv/url';
-		$data = $this->getEncodeData([
-			'id' => $this->getId(),
-			'r'  => 1080,
-		]);
-		$data = $this->post($url, $data);
-		
+		$url  = 'http://music.163.com/api/mv/detail?id=' . $this->getId(MusicType::MV);
+		$data = $this->get($url);
 		$data = json_decode($data, TRUE);
+		$data = $data['data'] ?? [];
 		
-		return $data['data'];
+		return [
+			'title'  => $data['name'] ?? NULL,
+			'artist' => $data['artistName'] ?? NULL,
+			'pic'    => $data['cover'] ?? NULL,
+			'url'    => empty($data['brs']) ? NULL : $data['brs'][max(array_keys($data['brs']))],
+		];
 	}
 	
 	/**
@@ -176,7 +167,7 @@ class NetEaseYunMusic extends BaseMusic implements MusicInterface
 	 *
 	 * @return null|array
 	 */
-	public function getPlaylist() : ?array
+	public function getPlaylistInfo() : ?array
 	{
 		$url  = $this->baseUrl . 'playlist/detail';
 		$data = $this->getEncodeData([
@@ -207,5 +198,54 @@ class NetEaseYunMusic extends BaseMusic implements MusicInterface
 			'pic'   => $result['coverImgUrl'] ?? '',
 			'lists' => $lists,
 		];
+	}
+	
+	/**
+	 * get user playlist
+	 *
+	 * @return null|array
+	 */
+	public function getUserPlaylist() : ?array
+	{
+		$uid  = $this->getId(MusicType::USER_PLAYLIST);
+		$url  = 'http://music.163.com/api/user/playlist/?offset=0&limit=1001&uid=' . $uid;
+		$data = $this->get($url);
+		$data = json_decode($data, TRUE);
+		
+		$playlist = $data['playlist'];
+		
+		$data = [];
+		foreach($playlist as $list)
+		{
+			$data[] = [
+				'id'              => $list['id'],
+				'pic'             => $list['coverImgUrl'],
+				'name'            => $list['name'],
+				'description'     => $list['description'],
+				'selfPlaylist'    => $list['userId'] == $uid,
+				'ownUserId'       => $list['userId'],
+				'musicCount'      => $list['trackCount'],//音乐数
+				'playCount'       => $list['playCount'],//播放数
+				'subscribedCount' => $list['subscribedCount'],//订阅数
+			];
+		}
+		
+		return $data;
+	}
+	
+	/**
+	 * search
+	 *
+	 * @param string $name
+	 *
+	 * @return array|null
+	 */
+	public function search($name = '')
+	{
+		$url  = 'http://music.163.com/api/search/pc?s=' . $name . '&offset=0&limit=10&type=1';
+		$data = $this->get($url);
+		$data = json_decode($data, TRUE);
+		
+		return $data['result']['songs'] ?? [];
 	}
 }

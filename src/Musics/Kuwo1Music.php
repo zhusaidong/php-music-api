@@ -49,9 +49,7 @@ class Kuwo1Music extends KuwoMusic
 	public function getLyricsContent() : ?string
 	{
 		$url = 'http://m.kuwo.cn/newh5/singles/songinfoandlrc?musicId=' . $this->getId();
-		
 		$data = $this->get($url);
-		
 		$data = json_decode($data, TRUE);
 		
 		$lrclist = $data['data']['lrclist'] ?? [];

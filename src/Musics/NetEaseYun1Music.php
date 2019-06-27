@@ -37,17 +37,11 @@ class NetEaseYun1Music extends NetEaseYunMusic
 	 */
 	public function getLyricsContent() : ?string
 	{
-		$url  = $this->baseUrl . 'song/lyric';
-		$data = $this->getEncodeData([
-			'id' => $this->getId(),
-			'lv' => 1,
-		]);
-		$data = $this->post($url, $data);
+		$url  = 'http://music.163.com/api/song/lyric?os=pc&lv=1&tv=1&id=' . $this->getId();
+		$data = $this->get($url);
+		$data = json_decode($data, TRUE);
 		
-		$data  = json_decode($data, TRUE);
-		$lyric = $data['lrc']['lyric'] ?? NULL;
-		
-		return $lyric;
+		return $data['lrc']['lyric'] ?? NULL;
 	}
 	
 	/**

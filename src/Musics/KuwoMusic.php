@@ -131,7 +131,17 @@ class KuwoMusic extends BaseMusic implements MusicInterface
 	 *
 	 * @return null|array
 	 */
-	public function getPlaylist() : ?array
+	public function getPlaylistInfo() : ?array
+	{
+		return NULL;
+	}
+	
+	/**
+	 * get user playlist
+	 *
+	 * @return null|array
+	 */
+	public function getUserPlaylist() : ?array
 	{
 		return NULL;
 	}

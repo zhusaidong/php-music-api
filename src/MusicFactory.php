@@ -53,18 +53,21 @@ class MusicFactory
 		call_user_func_array([$this->musicObj, 'setId'], [$id, $type]);
 		
 		$infos = [
-			MusicType::MUSIC    => [
+			MusicType::MUSIC         => [
 				'musicUrl',
 				'lyricsUrl',
 				'lyricsContent',
 				'mvUrl',
 				'musicInfo',
 			],
-			MusicType::PLAYLIST => [
-				'playlist',
+			MusicType::PLAYLIST      => [
+				'playlistInfo',
 			],
-			MusicType::MV       => [
+			MusicType::MV            => [
 				'mvInfo',
+			],
+			MusicType::USER_PLAYLIST => [
+				'userPlaylist',
 			],
 		];
 		
@@ -111,7 +114,7 @@ class MusicFactory
 	}
 	
 	/**
-	 * get playlist
+	 * get playlist info
 	 *
 	 * @param string $id
 	 * @param bool   $getSong
@@ -132,5 +135,29 @@ class MusicFactory
 		}
 		
 		return $data;
+	}
+	
+	/**
+	 * get user playlist
+	 *
+	 * @param string $id
+	 *
+	 * @return array|null
+	 */
+	public function userPlaylist($id = '') : ?array
+	{
+		return $this->get($id, MusicType::USER_PLAYLIST);
+	}
+	
+	/**
+	 * TODO search
+	 *
+	 * @param string $name
+	 *
+	 * @return array|null
+	 */
+	public function search($name = '') : ?array
+	{
+		return call_user_func_array([$this->musicObj, 'search'], [$name]);
 	}
 }

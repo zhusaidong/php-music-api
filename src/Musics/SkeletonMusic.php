@@ -81,7 +81,17 @@ class SkeletonMusic extends BaseMusic implements MusicInterface
 	 *
 	 * @return array
 	 */
-	public function getPlaylist() : ?array
+	public function getPlaylistInfo() : ?array
+	{
+		return NULL;
+	}
+	
+	/**
+	 * get user playlist
+	 *
+	 * @return null|array
+	 */
+	public function getUserPlaylist() : ?array
 	{
 		return NULL;
 	}

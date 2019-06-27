@@ -16,21 +16,9 @@ class BaseMusic
 	 */
 	protected $type = MusicType::MUSIC;
 	/**
-	 * @var mixed $songId
+	 * @var array $ids id list
 	 */
-	protected $songId = '';
-	/**
-	 * @var string $mvId
-	 */
-	protected $mvId = '';
-	/**
-	 * @var string $playlistId
-	 */
-	protected $playlistId = '';
-	/**
-	 * @var string|array $host
-	 */
-	public static $host = '';
+	protected $ids = [];
 	
 	/**
 	 * BaseMusic constructor.
@@ -54,17 +42,8 @@ class BaseMusic
 	public function getId(?string $type = NULL)
 	{
 		$type == NULL and $type = $this->type;
-		switch($type)
-		{
-			case MusicType::MUSIC:
-				return $this->songId;
-			case MusicType::PLAYLIST:
-				return $this->playlistId;
-			case MusicType::MV:
-				return $this->mvId;
-			default:
-				return $this->songId;
-		}
+		
+		return $this->ids[$type] ?? 0;
 	}
 	
 	/**
@@ -78,21 +57,7 @@ class BaseMusic
 	public function setId(?string $id, ?string $type = NULL)
 	{
 		$type == NULL and $type = $this->type;
-		switch($type)
-		{
-			case MusicType::MUSIC:
-				$this->songId = $id;
-				break;
-			case MusicType::PLAYLIST:
-				$this->playlistId = $id;
-				break;
-			case MusicType::MV:
-				$this->mvId = $id;
-				break;
-			default:
-				$this->songId = $id;
-				break;
-		}
+		$this->ids[$type] = $id;
 		
 		return $this;
 	}

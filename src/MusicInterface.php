@@ -50,9 +50,16 @@ interface MusicInterface
 	public function getMvInfo() : ?array;
 	
 	/**
-	 * get playlist
+	 * get playlist info
 	 *
 	 * @return null|array
 	 */
-	public function getPlaylist() : ?array;
+	public function getPlaylistInfo() : ?array;
+	
+	/**
+	 * get user playlist
+	 *
+	 * @return null|array
+	 */
+	public function getUserPlaylist() : ?array;
 }

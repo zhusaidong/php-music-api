@@ -15,7 +15,7 @@ class QianQian1Music extends QianQianMusic
 	 */
 	public function getLyricsContent() : ?string
 	{
-		$url   = 'http://music.taihe.com/data/tingapi/v1/restserver/ting?method=baidu.ting.song.lry&songid=' . $this->songId;
+		$url   = 'http://music.taihe.com/data/tingapi/v1/restserver/ting?method=baidu.ting.song.lry&songid=' . $this->getId();
 		$data  = $this->get($url);
 		$array = json_decode($data, TRUE);
 		
@@ -29,7 +29,7 @@ class QianQian1Music extends QianQianMusic
 	 */
 	public function getMusicInfo() : ?array
 	{
-		$url   = 'http://music.taihe.com/data/tingapi/v1/restserver/ting?method=baidu.ting.song.baseInfo&songid=' . $this->songId;
+		$url   = 'http://music.taihe.com/data/tingapi/v1/restserver/ting?method=baidu.ting.song.baseInfo&songid=' . $this->getId();
 		$data  = $this->get($url);
 		$array = json_decode($data, TRUE);
 		$data  = $array['content'] ?? [];
